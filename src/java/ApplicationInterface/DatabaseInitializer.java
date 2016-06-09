@@ -12,12 +12,14 @@
 package ApplicationInterface;
 
 import DatabaseInterface.*;
+import java.io.File;
 
 public class DatabaseInitializer {
     
     public static String initialization() throws Exception {
         try {
-            SQLExecutor.executeUpdate("DROP DATABASE IF EXISTS acmdb05;");
+            String path = Thread.currentThread().getContextClassLoader().getResource("Initialization.sql").getPath();
+            SQLExecutor.executeScript(new File(path));
         } catch (Exception e) {
             System.out.println("Error when initialization.");
             throw(e);
