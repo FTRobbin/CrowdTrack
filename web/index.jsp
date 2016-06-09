@@ -19,6 +19,7 @@
 	<div><a href="Login.jsp">Login</a></div>
         <div><a href="Visit.jsp">Visit</a></div>
         <div><a href="ModifyPoi.jsp">Modify POI</a></div>
+        <div><a href="PoiList.jsp">POI List</a></div>
 	<div><a href="Logout.jsp">Logout</a></div>
     </body>
 </html>

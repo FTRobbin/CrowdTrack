@@ -30,4 +30,8 @@ public class UserOperations {
         return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Users WHERE login='" + login + "' AND password='" + pass + "';");
     }
     
+    public static ArrayList<String[]> getFav(String login) throws Exception {
+        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Favorites WHERE login='" + login + "';");
+    }
+    
 }

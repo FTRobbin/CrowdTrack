@@ -21,13 +21,19 @@
 		if (request.getParameter("clicked").equals("0")) {
 		    %>
 		    <text>Now destroying the world!!!!</text>
-		    <%= DatabaseInitializer.initialization() %>
+		    <%= DatabaseInitializer.initialization("Initialization.sql") %>
 		    <%
 		}
 		if (request.getParameter("clicked").equals("1")) {
 		    %>
 		    <text>Now adding basic users.</text>
-		    <%= DatabaseInitializer.addBasicUsers() %>
+		    <%= DatabaseInitializer.initialization("BasicUserPack.sql") %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("2")) {
+		    %>
+		    <text>Now adding basic POIs.</text>
+		    <%= DatabaseInitializer.initialization("BasicPOIPack.sql") %>
 		    <%
 		}
 	    }
@@ -37,6 +43,7 @@
 	    <input type="hidden" name="clicked">
 	    <input type="button" value="Restart" onclick="go(0)">
 	    <input type="button" value="AddBasicUsers" onclick="go(1)">
+	    <input type="button" value="AddBasicPOIs" onclick="go(2)">
 	</form>
 	
 	<script language="JavaScript">

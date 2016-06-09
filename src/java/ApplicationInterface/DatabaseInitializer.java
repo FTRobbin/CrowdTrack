@@ -16,25 +16,14 @@ import java.io.File;
 
 public class DatabaseInitializer {
     
-    public static String initialization() throws Exception {
+    public static String initialization(String filename) throws Exception {
         try {
-            String path = Thread.currentThread().getContextClassLoader().getResource("Initialization.sql").getPath();
+            String path = Thread.currentThread().getContextClassLoader().getResource(filename).getPath();
             SQLExecutor.executeScript(new File(path));
         } catch (Exception e) {
             System.out.println("Error when initialization.");
             throw(e);
         }
         return "Success";
-    }
-    
-    public static String addBasicUsers() throws Exception {
-        try {
-            String path = Thread.currentThread().getContextClassLoader().getResource("BasicUserPack.sql").getPath();
-            SQLExecutor.executeScript(new File(path));
-        } catch (Exception e) {
-            System.out.println("Error when adding basic users.");
-            throw(e);
-        }
-        return "Success";
-    }
+    }    
 }
