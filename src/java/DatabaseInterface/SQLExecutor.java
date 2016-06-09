@@ -44,13 +44,13 @@ public class SQLExecutor {
             System.err.println(e.getMessage());
             throw(e);
         }
-        System.out.println("Executed query : \"" + sqlQuery + '"');
+        System.err.println("Executed query : \"" + sqlQuery + '"');
         int col = results.getMetaData().getColumnCount();
         ArrayList<String[]> ret = new ArrayList<String[]>();
         while (results.next()) {
             String[] line = new String[col];
             for (int i = 1; i <= col; ++i) {
-                line[i] = results.getString(i);
+                line[i - 1] = results.getString(i);
             }
             ret.add(line);
         }
@@ -69,7 +69,7 @@ public class SQLExecutor {
             System.err.println(e.getMessage());
             throw(e);
         }
-        System.out.println("Executed query : \"" + sqlUpdate + '"');
+        System.err.println("Executed query : \"" + sqlUpdate + '"');
         con.stmt.close();
         con.con.close();
         return ret;
@@ -101,7 +101,7 @@ public class SQLExecutor {
             System.err.println(e.getMessage());
             throw(e);
         }
-        System.out.println("Executed script : \"" + sqlScript.getName() + '"');
+        System.err.println("Executed script : \"" + sqlScript.getName() + '"');
         con.stmt.close();
         con.con.close();
         return ret;        

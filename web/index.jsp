@@ -15,6 +15,7 @@
     <body>
         <jsp:include page="PrivilegeLevel.jsp" />
         <div><a href="Initialization.jsp">Initialization</a></div>
+	<div><a href="Register.jsp">Register</a></div>
 	<div><a href="Login.jsp">Login</a></div>
         <div><a href="Visit.jsp">Visit</a></div>
         <div><a href="ModifyPoi.jsp">Modify POI</a></div>
