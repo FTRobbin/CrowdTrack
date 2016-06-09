@@ -16,7 +16,7 @@
 	<%
 	    String login=(String)request.getParameter("login"),
 		   pass=(String)request.getParameter("pass");
-	    java.util.ArrayList<String[]> ret = ApplicationInterface.Login.checkLogin(login, pass);
+	    java.util.ArrayList<String[]> ret = ApplicationInterface.UserOperations.checkLogin(login, pass);
 	    if (ret.size() == 1) {
 		session.setAttribute("login", ret.get(0)[0]);
 		session.setAttribute("name", ret.get(0)[2]);

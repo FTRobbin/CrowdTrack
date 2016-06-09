@@ -5,15 +5,15 @@
  */
 package ApplicationInterface;
 
+import DatabaseInterface.SQLExecutor;
+import java.util.ArrayList;
+
 /**
  *
  * @author RobbinNi
  */
-
-import DatabaseInterface.*;
-import java.util.ArrayList;
-
-public class Registration {
+public class UserOperations {
+    
     public static int registerUser(String login, String name, String pass) throws Exception {
         //0 - Success 1 - Login Exists
         //check existence
@@ -25,4 +25,9 @@ public class Registration {
             return 1;
         }
     }
+
+    public static ArrayList<String[]> checkLogin(String login, String pass) throws Exception {
+        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Users WHERE login='" + login + "' AND password='" + pass + "';");
+    }
+    
 }

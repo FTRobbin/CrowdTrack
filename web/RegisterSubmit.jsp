@@ -16,7 +16,7 @@
 	    String login=(String)request.getParameter("login"),
 		   name=(String)request.getParameter("name"),
 		   pass=(String)request.getParameter("pass");
-	    int ret = ApplicationInterface.Registration.registerUser(login, name, pass);
+	    int ret = ApplicationInterface.UserOperations.registerUser(login, name, pass);
 	    if (ret == 0) {
 		session.setAttribute("login", login);
 		session.setAttribute("name", name);
