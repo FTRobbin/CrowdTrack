@@ -6,6 +6,7 @@
 package DatabaseInterface;
 
 import java.sql.*;
+import java.io.*;
 
 /**
  *
@@ -21,7 +22,7 @@ public class SQLExecutor {
             try {
                 String userName = "acmdbu05",
                        password = "du78qt4q",
-                        url = "jdbc:mysql://georgia.eng.utah.edu/acmdb05";
+                        url = "jdbc:mysql://georgia.eng.utah.edu";
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
                 con = DriverManager.getConnection (url, userName, password);
                 stmt = con.createStatement();
@@ -68,4 +69,36 @@ public class SQLExecutor {
         return ret;
     }
     
+    public static int[] executeScript(File sqlScript) throws Exception {
+        Connector con = new Connector();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(sqlScript));
+            String line, query = "";
+            con.stmt.clearBatch();
+            while ((line = reader.readLine()) != null) {
+                query += " " + line;
+                if (line.endsWith(";")) {
+                    con.stmt.addBatch(query);
+                    query = "";
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error when reading from script file " + sqlScript.getName() + ".");
+            System.err.println(e.getMessage());
+            throw(e);
+        }           
+        int[] ret;
+        try {
+            ret = con.stmt.executeBatch();           
+        } catch (Exception e) {
+            System.err.println("Unable to execute script : \"" + sqlScript.getName() + '"');
+            System.err.println(e.getMessage());
+            throw(e);
+        }
+        System.out.println("Executed script : \"" + sqlScript.getName() + '"');
+        con.stmt.close();
+        con.con.close();
+        return ret;        
+    }
+
 }
