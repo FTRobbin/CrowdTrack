@@ -16,23 +16,33 @@
 	<text>This JSP page drops all the tables in the remote server and initialize the tables needed for the CrowdTrack System.</text><br/>
 	
 	<%
+	    System.err.println(request.getParameter("clicked"));
 	    if (request.getParameter("clicked") != null) {
-		%>
-		<text>Now destroying the world!!!!</text>
-		<%= DatabaseInitializer.initialization() %>
-		<%
+		if (request.getParameter("clicked").equals("0")) {
+		    %>
+		    <text>Now destroying the world!!!!</text>
+		    <%= DatabaseInitializer.initialization() %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("1")) {
+		    %>
+		    <text>Now adding basic users.</text>
+		    <%= DatabaseInitializer.addBasicUsers() %>
+		    <%
+		}
 	    }
 	%>
 	
 	<form name="form1" method="POST">
 	    <input type="hidden" name="clicked">
-	    <input type="button" value="Restart" onclick="restart()">
+	    <input type="button" value="Restart" onclick="go(0)">
+	    <input type="button" value="AddBasicUsers" onclick="go(1)">
 	</form>
 	
 	<script language="JavaScript">
 		<!--
-		function restart() {
-			document.form1.clicked.value = "true";
+		function go(action) {
+			document.form1.clicked.value = action;
 			form1.submit();
 		}
 	</script>	

@@ -23,6 +23,14 @@
 
 	<jsp:include page="PrivilegeLevel.jsp"/>
 	
+	<form name="loginForm" method="POST" action="LoginSubmit.jsp">
+	    Login : <div><input type="text" name="login"></div>
+	    Password : <div><input type="password" name="pass"></div>
+	    <input type="submit">
+	</form>
+	
+	<br/>
+	
 	<form name="form1" method="POST">
 	    <input type="hidden" name="clicked">
 	    <input type="button" value="I'm a Guest!" onclick="setPrivilege(0)">

@@ -26,4 +26,15 @@ public class DatabaseInitializer {
         }
         return "Success";
     }
+    
+    public static String addBasicUsers() throws Exception {
+        try {
+            String path = Thread.currentThread().getContextClassLoader().getResource("BasicUserPack.sql").getPath();
+            SQLExecutor.executeScript(new File(path));
+        } catch (Exception e) {
+            System.out.println("Error when adding basic users.");
+            throw(e);
+        }
+        return "Success";
+    }
 }
