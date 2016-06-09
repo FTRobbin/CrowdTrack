@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DatabaseInterface;
+package DatabaseObject;
 
 /**
  *
  * @author yjt-Lab
  */
-public class HasKeywordData {
-    int pid;
-    int wid;
+public class TrustsData {
+    String login1;
+    String login2;
+    boolean isTrusted;
 }

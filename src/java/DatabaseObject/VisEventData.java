@@ -3,17 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DatabaseInterface;
+package DatabaseObject;
 
 /**
  *
  * @author yjt-Lab
  */
-public class FeedbacksData {
-    int fid;
-    String login;
-    int pid;
-    String text;
-    int score;
-    String fdate;
+public class VisEventData {
+    int vid;
+    int cost;
+    int numofheads;
 }

@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DatabaseInterface;
+package DatabaseObject;
 
 /**
  *
  * @author yjt-Lab
  */
-public class FavoritesData {
-    int pid;
-    String login;
-    String fdate;
+public class KeywordsData {
+    int wid;
+    String word;
 }

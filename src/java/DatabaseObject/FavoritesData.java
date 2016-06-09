@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DatabaseInterface;
+package DatabaseObject;
 
 /**
  *
  * @author yjt-Lab
  */
-public class VisEventData {
-    int vid;
-    int cost;
-    int numofheads;
+public class FavoritesData {
+    int pid;
+    String login;
+    String fdate;
 }

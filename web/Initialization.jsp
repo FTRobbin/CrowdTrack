@@ -37,5 +37,7 @@
 		}
 	</script>	
 	
+	<br/>
+	<a href="index.jsp">Back</a>
     </body>
 </html>

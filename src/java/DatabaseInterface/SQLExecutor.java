@@ -7,6 +7,7 @@ package DatabaseInterface;
 
 import java.sql.*;
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -33,9 +34,8 @@ public class SQLExecutor {
         }
     }
         
-    public static String executeQuery(String sqlQuery) throws Exception {
+    public static ArrayList<String[]> executeQuery(String sqlQuery) throws Exception {
         Connector con = new Connector();
-        String ret = "";
         ResultSet results;
         try {
             results = con.stmt.executeQuery(sqlQuery);
@@ -45,8 +45,14 @@ public class SQLExecutor {
             throw(e);
         }
         System.out.println("Executed query : \"" + sqlQuery + '"');
+        int col = results.getMetaData().getColumnCount();
+        ArrayList<String[]> ret = new ArrayList<String[]>();
         while (results.next()) {
-            //TODO : concat into a string
+            String[] line = new String[col];
+            for (int i = 1; i <= col; ++i) {
+                line[i] = results.getString(i);
+            }
+            ret.add(line);
         }
         con.stmt.close();
         con.con.close();

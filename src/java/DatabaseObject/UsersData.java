@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DatabaseInterface;
+package DatabaseObject;
 
 /**
  *
  * @author yjt-Lab
  */
-public class VisitData {
+public class UsersData {
     String login;
-    int pid;
-    int vid;
-    String visdate;
+    String name;
+    String password;
+    int userType;
+    
+    //TODO
 }
