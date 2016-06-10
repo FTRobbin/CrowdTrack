@@ -20,8 +20,43 @@ public class POIOperations {
         return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Pois;");
     }
     
-    public static ArrayList<ArrayList<String>> getFavList(String login) throws Exception {
-        ArrayList<String[]> poiList = getList();
+    public static ArrayList<String[]> getList(String conditions) throws Exception {
+        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Pois " + conditions + " ;");
+    }
+    
+    public static ArrayList<String[]> getAvgSortedList(String conditions) throws Exception {
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT pid, avg(score) AS avg FROM acmdb05.Feedbacks GROUP BY pid) AS a " + conditions + " p.pid = a.pid ORDER BY avg DESC;"
+);
+    }
+
+    public static ArrayList<String[]> getTrustAvgSortedList(String conditions, String login) throws Exception {
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT pid, avg(score) AS avg FROM (SELECT f.pid, f.score FROM acmdb05.Feedbacks f, acmdb05.Trusts t WHERE t.login1 = \"" + login + "\" AND f.login = t.login2) AS ft GROUP BY pid) AS a " + conditions + " p.pid = a.pid ORDER BY avg DESC;"
+);
+    }
+
+        
+    public static ArrayList<String[]> getKeywordList(String keywordCondition, int keywordCnt) throws Exception {
+        return SQLExecutor.executeQuery("SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
+"	(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, count(*) AS c from acmdb05.Pois p, acmdb05.Haskeywords h WHERE p.pid = h.pid AND (" + keywordCondition + ") GROUP by p.pid) AS tp WHERE tp.c = " + keywordCnt + ";");
+    }
+    
+    public static ArrayList<String[]> getKeywordList(String conditions, String keywordCondition, int keywordCnt) throws Exception {
+        return SQLExecutor.executeQuery("SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
+"	(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, count(*) AS c from acmdb05.Pois p, acmdb05.Haskeywords h WHERE p.pid = h.pid AND (" + keywordCondition + ") GROUP by p.pid) AS tp " + conditions + " AND tp.c = " + keywordCnt + ";");    }
+    
+    public static ArrayList<String[]> getKeywordAvgSortedList(String conditions, String keywordCondition, int keywordCnt) throws Exception {
+        return SQLExecutor.executeQuery("SELECT B.pid, B.name, B.category, B.istate, B.city, B.street, B.price, B.avg FROM" + " (SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
+"	(SELECT pp.pid, pp.name, pp.category, pp.istate, pp.city, pp.street, pp.price, count(*) AS c from acmdb05.Pois pp, acmdb05.Haskeywords h WHERE pp.pid = h.pid AND (" + keywordCondition + ") GROUP by pp.pid) AS tp WHERE tp.c = " + keywordCnt + ") AS A, "
+        + "(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT pid, avg(score) AS avg FROM acmdb05.Feedbacks GROUP BY pid) AS a " + conditions + " p.pid = a.pid) AS B" + " WHERE A.pid = B.pid ORDER BY avg DESC;");
+    }
+
+    public static ArrayList<String[]> getKeywordTrustAvgSortedList(String conditions, String login, String keywordCondition, int keywordCnt) throws Exception {
+        return SQLExecutor.executeQuery("SELECT B.pid, B.name, B.category, B.istate, B.city, B.street, B.price, B.avg FROM" + " (SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
+"	(SELECT pp.pid, pp.name, pp.category, pp.istate, pp.city, pp.street, pp.price, count(*) AS c from acmdb05.Pois pp, acmdb05.Haskeywords h WHERE pp.pid = h.pid AND (" + keywordCondition + ") GROUP by pp.pid) AS tp WHERE tp.c = " + keywordCnt + ") AS A, "
+        + "(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT pid, avg(score) AS avg FROM (SELECT f.pid, f.score FROM acmdb05.Feedbacks f, acmdb05.Trusts t WHERE t.login1 = \"" + login + "\" AND f.login = t.login2) AS ft GROUP BY pid) AS a " + conditions + " p.pid = a.pid ORDER BY avg DESC) AS B" + " WHERE A.pid = B.pid ORDER BY avg DESC;");
+    }
+
+    public static ArrayList<ArrayList<String>> getFavList(ArrayList<String[]> poiList, String login) throws Exception {
         ArrayList<String[]> favList = UserOperations.getFav(login);
         Set<String> faved = new HashSet<>();
         favList.stream().forEach((ss) -> {

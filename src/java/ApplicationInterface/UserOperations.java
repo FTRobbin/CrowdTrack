@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Set;
 
 /**
  *
@@ -36,6 +37,51 @@ public class UserOperations {
     public static ArrayList<String[]> getFav(String login) throws Exception {
         return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Favorites WHERE login='" + login + "';");
     }
+
+    public static ArrayList<String[]> getTrust(String login) throws Exception {
+        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Trusts WHERE login1='" + login + "';");
+    }
+    
+    public static ArrayList<String[]> getList() throws Exception {
+        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Users;");
+    }
+    
+    public static Boolean userTrustUserQuery(String login, String login1) throws Exception {
+        return (SQLExecutor.executeQuery("SELECT * FROM acmdb05.Trusts WHERE login1='" + login + "' AND login2='" + login1 + "' ;")).size() > 0;
+    }
+
+    
+    public static ArrayList<ArrayList<String> > getTrustList(ArrayList<String[]> userList, String login) throws Exception {
+        ArrayList<String[]> trustList = UserOperations.getTrust(login);
+        Set<String> faved = new HashSet<>();
+        trustList.stream().forEach((ss) -> {
+            faved.add(ss[1].intern());
+        });
+        ArrayList<ArrayList<String>> ret = new ArrayList<>();
+        for (String[] ss : userList) {
+            ArrayList<String> Line = new ArrayList<>();
+            for (int i = 0; i < ss.length; ++i) {
+                Line.add(ss[i]);
+            }
+            if (faved.contains(ss[0].intern())) {
+                Line.add("Trusted");
+            } else {
+                Line.add("Trust");
+            }
+            ret.add(Line);
+        }
+        return ret;
+    }
+    
+    public static int changeTrust(String login, String login1) throws Exception {
+        if (userTrustUserQuery(login, login1)) {
+            SQLExecutor.executeUpdate("DELETE FROM acmdb05.Trusts WHERE login1='" + login + "' AND login2='" + login1 + "' ;");
+        } else {
+            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Trusts VALUES (\"" + login + "\", \"" + login1 + "\");");
+        }
+        return 0;
+    }
+
     
     public static int computeDegree(String user1, String user2) throws Exception {
         HashSet<String> hm =new HashSet<>();

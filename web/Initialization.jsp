@@ -36,6 +36,31 @@
 		    <%= DatabaseInitializer.initialization("BasicPOIPack.sql") %>
 		    <%
 		}
+		if (request.getParameter("clicked").equals("3")) {
+		    %>
+		    <text>Now adding World Wonders.</text>
+		    <%= DatabaseInitializer.initialization("WorldWondersPack.sql") %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("4")) {
+		    %>
+		    <text>Now adding Turing Awards Winners.</text>
+		    <%= DatabaseInitializer.initialization("TuringAwardsPack.sql") %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("5")) {
+		    %>
+		    <text>Now adding random generated feedbacks.</text>
+		    <%= DatabaseInitializer.initialization("TravellingComputerScientists.sql") %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("6")) {
+		    %>
+		    <text>Now adding basic keywords.</text>
+		    <%= DatabaseInitializer.initialization("AdjectiveKeywords.sql") %>
+		    <%
+		}
+	
 	    }
 	%>
 	
@@ -44,6 +69,10 @@
 	    <input type="button" value="Restart" onclick="go(0)">
 	    <input type="button" value="AddBasicUsers" onclick="go(1)">
 	    <input type="button" value="AddBasicPOIs" onclick="go(2)">
+	    <input type="button" value="AddWorldWonders" onclick="go(3)">
+	    <input type="button" value="AddTuringAwards" onclick="go(4)">
+	    <input type="button" value="AddFeedbacks" onclick="go(5)">
+	    <input type="button" value="AddKeywords" onclick="go(6)">
 	</form>
 	
 	<script language="JavaScript">

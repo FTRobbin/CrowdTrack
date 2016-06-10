@@ -10,7 +10,7 @@
 DROP DATABASE IF EXISTS acmdb05;
 CREATE DATABASE IF NOT EXISTS acmdb05;
 USE acmdb05;
-CREATE TABLE Pois (pid INTEGER AUTO_INCREMENT, name VARCHAR(50), category CHAR(30), 
+CREATE TABLE Pois (pid INTEGER AUTO_INCREMENT, name VARCHAR(50), category CHAR(30), istate CHAR(30), city CHAR(30), street CHAR(30), price NUMERIC(15,2),
 	PRIMARY KEY(pid));
 CREATE TABLE Users (login CHAR(30), password CHAR(30), name VARCHAR(40), userType INTEGER,
 	PRIMARY KEY(login));
@@ -21,7 +21,7 @@ CREATE TABLE Visits (login CHAR(30), pid INTEGER, vid INTEGER, visdate DATE,
     FOREIGN KEY(login) REFERENCES Users(login),
     FOREIGN KEY(pid) REFERENCES Pois(pid),
     FOREIGN KEY(vid) REFERENCES VisEvent(vid));
-CREATE TABLE Trusts (login1 CHAR(30), login2 CHAR(30), isTrusted boolean,
+CREATE TABLE Trusts (login1 CHAR(30), login2 CHAR(30),
 	PRIMARY KEY(login1, login2),
     FOREIGN KEY(login1) REFERENCES Users(login),
     FOREIGN KEY(login2) REFERENCES Users(login));
@@ -39,7 +39,7 @@ CREATE TABLE Rates (login CHAR(30), fid INTEGER, rating INTEGER,
     FOREIGN KEY(fid) REFERENCES Feedbacks(fid));
 CREATE TABLE Keywords (wid INTEGER AUTO_INCREMENT, word CHAR(50),
 	PRIMARY KEY(wid));
-CREATE TABLE Haskeywords(pid INTEGER, wid INTEGER,
+CREATE TABLE Haskeywords(pid INTEGER NOT NULL, wid INTEGER NOT NULL,
 	PRIMARY KEY(pid, wid),
     FOREIGN KEY(pid) REFERENCES Pois(pid),
     FOREIGN KEY(wid) REFERENCES Keywords(wid));
