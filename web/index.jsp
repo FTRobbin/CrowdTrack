@@ -23,6 +23,7 @@
         <div><a href="Feedback.jsp">View Feedback</a></div>
 	<div><a href="UserList.jsp">User List</a></div>
         <div><a href="degree.jsp">User Degree</a></div>
+	<div><a href="UserAwards.jsp">User Awards</a></div>
 	<div><a href="Logout.jsp">Logout</a></div>
     </body>
 </html>

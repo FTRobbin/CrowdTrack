@@ -42,7 +42,7 @@ public class POIOperations {
     
     public static ArrayList<String[]> getKeywordList(String conditions, String keywordCondition, int keywordCnt) throws Exception {
         return SQLExecutor.executeQuery("SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
-"	(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, count(*) AS c from acmdb05.Pois p, acmdb05.Haskeywords h WHERE p.pid = h.pid AND (" + keywordCondition + ") GROUP by p.pid) AS tp " + conditions + " AND tp.c = " + keywordCnt + ";");    }
+"	(SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, count(*) AS c from acmdb05.Pois p, acmdb05.Haskeywords h WHERE p.pid = h.pid AND (" + keywordCondition + ") GROUP by p.pid) AS tp WHERE tp.c = " + keywordCnt + conditions + ";");    }
     
     public static ArrayList<String[]> getKeywordAvgSortedList(String conditions, String keywordCondition, int keywordCnt) throws Exception {
         return SQLExecutor.executeQuery("SELECT B.pid, B.name, B.category, B.istate, B.city, B.street, B.price, B.avg FROM" + " (SELECT tp.pid, tp.name, tp.category, tp.istate, tp.city, tp.street, tp.price from \n" +
@@ -78,6 +78,21 @@ public class POIOperations {
         return ret;
     }
     
+    public static ArrayList<String[]> getCategoryList() throws Exception {
+        return SQLExecutor.executeQuery("SELECT DISTINCT category FROM acmdb05.Pois;");
+    }
+    
+    public static ArrayList<String[]> getMostVisitsList(int top, String cond) throws Exception {
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, c.cnt FROM acmdb05.Pois p, (SELECT pid, count(*) as cnt FROM acmdb05.Visits v GROUP BY v.vid) AS c WHERE p.pid = c.pid " + cond + " ORDER BY c.cnt LIMIT " + top + ";");
+    }
+    
+    public static ArrayList<String[]> getMostExpensiveList(int top, String cond) throws Exception {
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT vv.pid, avg(cost) AS avg FROM (SELECT v.pid, v.vid, ve.cost FROM acmdb05.Visits v, acmdb05.VisEvent ve WHERE v.vid = ve.vid) AS vv GROUP BY vv.pid) AS a WHERE p.pid = a.pid "  + cond + " ORDER BY a.avg LIMIT " + top + ";");
+    }
+    
+    public static ArrayList<String[]> getHighestRatedList(int top, String cond) throws Exception {
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT pid, avg(score) AS avg FROM acmdb05.Feedbacks GROUP BY pid) AS a WHERE p.pid = a.pid " + cond + " ORDER BY avg DESC LIMIT " + top + ";");
+    }
     public static Boolean userFavPoiQuery(String login, String pid) throws Exception {
         return (SQLExecutor.executeQuery("SELECT * FROM acmdb05.Favorites WHERE login='" + login + "' AND pid=" + pid + " ;")).size() > 0;
     }

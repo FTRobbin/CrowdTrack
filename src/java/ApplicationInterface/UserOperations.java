@@ -82,6 +82,13 @@ public class UserOperations {
         return 0;
     }
 
+    public static ArrayList<String[]> getTrustCntList(int top) throws Exception {
+        return SQLExecutor.executeQuery("SELECT u.login, u.Name, count(*) as cnt FROM acmdb05.Users u, acmdb05.Trusts t WHERE u.login = t.login2 GROUP BY u.login ORDER BY cnt DESC LIMIT " + top + " ;");
+    }
+    
+    public static ArrayList<String[]> getUsefulnessList(int top) throws Exception {
+        return SQLExecutor.executeQuery("SELECT u.login, u.Name, sum(favg.avg) as sum FROM acmdb05.Users u, (SELECT r.login, f.fid, avg(r.rating) as avg FROM acmdb05.Feedbacks f, acmdb05.Rates r WHERE f.fid = r.fid) AS favg WHERE u.login = favg.login GROUP BY u.login ORDER BY sum DESC LIMIT " + top + " ;");
+    }
     
     public static int computeDegree(String user1, String user2) throws Exception {
         HashSet<String> hm =new HashSet<>();
