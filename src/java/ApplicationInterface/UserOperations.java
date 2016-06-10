@@ -93,7 +93,7 @@ public class UserOperations {
         while (!uq.isEmpty()) {
             String u = uq.poll();
             Integer d = dq.poll();
-            ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT DISTINCT login FROM acmdb05.Favorites WHERE pid IN (SELECT pid FROM acmdb05.Favorites WHERE login='"+u+"');");
+            ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT DISTINCT f1.login FROM acmdb05.Favorites f1 WHERE f1.pid IN (SELECT f2.pid FROM acmdb05.Favorites f2 WHERE f2.login='"+u+"');");
             for (int i = 0; i < ret.size(); i++) {
                 String s = ret.get(i)[0];
                 if (!hm.contains(s)) {

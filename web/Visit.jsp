@@ -58,7 +58,7 @@ function check_all_fields(form_obj){
            
          
         Search POIs on name:
-        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="orders.jsp">
+        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="Visit.jsp">
                 <input type=hidden name="searchAttribute" value="Visit">
                 Visit POI:<input type=text name="VisitPoi" length=50>
                 Visit Date(YYYY-MM-DD):<input type=text name="VisitDate" length=20>

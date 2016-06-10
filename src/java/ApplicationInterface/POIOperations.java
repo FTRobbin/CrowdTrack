@@ -92,9 +92,14 @@ public class POIOperations {
         return 0;
     }
     
+    public static String[] getInfo(int pid) throws Exception {
+        ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT pid,name,category FROM acmdb05.Pois WHERE pid="+pid+";");
+        return ret.get(1);
+    }
+    
     public static int addPoi(String poiName, String poiCategory) {
         try {
-            SQLExecutor.executeUpdate("INSERT INTO Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"')");
+            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"');");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;
@@ -104,7 +109,7 @@ public class POIOperations {
     
     public static int updatePoi(int pid, String poiName, String poiCategory) {
         try {
-            SQLExecutor.executeUpdate("UPDATE Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid);
+            SQLExecutor.executeUpdate("UPDATE acmdb05.Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid+";");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;

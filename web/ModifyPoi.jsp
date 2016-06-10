@@ -58,7 +58,7 @@ function check_all_fields(form_obj){
 	 %>
 	</table>
         New POI:
-        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="orders.jsp">
+        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="ModifyPoi.jsp">
                 <input type=hidden name="searchAttribute" value="New">
                 POI name:<input type=text name="poiName" length=50>
                 POI category:<input type=text name="poiCategory" length=30>
@@ -66,7 +66,7 @@ function check_all_fields(form_obj){
         </form>
         <BR><BR>
         Update POI:
-        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="orders.jsp">
+        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="ModifyPoi.jsp">
                 <input type=hidden name="searchAttribute" value="Update">
                 Pid:<input type=text name="pid" length=10>
                 POI name:<input type=text name="poiName" length=50>
@@ -75,7 +75,7 @@ function check_all_fields(form_obj){
         </form>
 
         <% } else {
-                if (request.getParameter("searchAttribute")=="New") {
+                if (request.getParameter("searchAttribute").equals("New")) {
                     int flag = POIOperations.addPoi(request.getParameter("poiName"), request.getParameter("poiCategory"));
                     if (flag == 1) {
         %>
@@ -88,16 +88,16 @@ function check_all_fields(form_obj){
 	</script>
         <%          } %>
         <%      }
-                if (request.getParameter("searchAttribute")=="Update") {
+                if (request.getParameter("searchAttribute").equals("Update")) {
                     int flag = POIOperations.updatePoi(Integer.valueOf(request.getParameter("pid")), request.getParameter("poiName"), request.getParameter("poiCategory"));
                     if (flag == 1) {
         %>
         <script>
-	    if (!alert("New Success.")) location.href = 'index.jsp';
+	    if (!alert("Update Success.")) location.href = 'index.jsp';
 	</script>
         <%          } else { %>
         <script>
-	    if (!alert("New Fail.")) location.href = 'index.jsp';
+	    if (!alert("Update Fail.")) location.href = 'index.jsp';
 	</script>
         <%          } 
                 }

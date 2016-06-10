@@ -28,7 +28,7 @@ function check_all_fields(form_obj){
            if( searchAttribute == null ){ %>
            
         Get Users Degree:
-        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="orders.jsp">
+        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="degree.jsp">
                 <input type=hidden name="searchAttribute" value="degree">
                 User1 login:<input type=text name="user1" length=50>
                 User2 login:<input type=text name="user2" length=50>
@@ -38,7 +38,8 @@ function check_all_fields(form_obj){
         <% } else {
                int deg = Visit.doVisit((String)session.getAttribute("login"), request.getParameter("VisitPoi"), request.getParameter("VisitDate"), Integer.valueOf(request.getParameter("cost")), Integer.valueOf(request.getParameter("numberofheads")));
                out.println("User Degree: "+Integer.toString(deg));
-        
-         } %>
+        %>
+        <a href="index.jsp">Back</a>
+        <% } %>
     </body>
 </html>
