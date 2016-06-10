@@ -10,8 +10,10 @@ import java.text.SimpleDateFormat;
 import DatabaseInterface.*;
 /**
  *
- * @author RobbinNi
+ * @author RobbinNi, yjt-Lab
  */
+
+
 public class POIOperations {
     
     public static ArrayList<String[]> getList() throws Exception {
@@ -54,4 +56,74 @@ public class POIOperations {
         }
         return 0;
     }
+    
+    public static int addPoi(String poiName, String poiCategory) {
+        try {
+            SQLExecutor.executeUpdate("INSERT INTO Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"')");
+        } catch(Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+    
+    public static int updatePoi(int pid, String poiName, String poiCategory) {
+        try {
+            SQLExecutor.executeUpdate("UPDATE Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid);
+        } catch(Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
+        return 1;
+    }
+    
+    static class PoiAboutSuggestion implements Comparable<PoiAboutSuggestion>{
+        public String poiName;
+        public Integer times;
+        public Integer pid;
+        public PoiAboutSuggestion(String poiNam,Integer time,Integer pi) {
+            poiName = poiNam;
+            times = time;
+            pid = pi;
+        }
+        
+        @Override
+        public int compareTo(PoiAboutSuggestion arg0) {
+            return -times.compareTo(arg0.times);
+        }
+    }
+    
+    public static ArrayList<String> getSuggestion(String poiName) throws Exception {
+        ArrayList<String[]> ret1 = SQLExecutor.executeQuery("SELECT pid FROM acmdb05.Pois WHERE name='"+poiName+"';");
+        int pid = Integer.valueOf(ret1.get(0)[0]);
+        ArrayList<String[]> ret2 = SQLExecutor.executeQuery("SELECT DISTINCT login FROM acmdb05.Visits WHERE pid="+pid+";");
+        TreeMap<Integer,Integer> tm = new TreeMap<>();
+        for (int i = 0; i < ret2.size(); i++) {
+            ArrayList<String[]> ret3 = SQLExecutor.executeQuery("SELECT DISTINCT pid FROM acmdb05.Visits WHERE login='"+ret2.get(i)[0]+"';");
+            for (int j = 0; j < ret3.size(); i++) {
+                Integer re = Integer.valueOf(ret3.get(j)[0]);
+                if (!tm.containsKey(re)) {
+                    tm.put(re, 1);
+                } else {
+                    tm.put(re, tm.get(re)+1);
+                }
+            }
+        }
+        Iterator it = tm.keySet().iterator();
+        ArrayList<PoiAboutSuggestion> pl = new ArrayList<>();
+        while (it.hasNext()) {
+            Integer pidtmp = (Integer)it.next();
+            Integer timetmp = tm.get(pidtmp);
+            ArrayList<String[]> ret4 = SQLExecutor.executeQuery("SELECT name FROM acmdb05.Pois WHERE pid="+pidtmp+";");
+            String poiNametmp = ret4.get(0)[0];
+            PoiAboutSuggestion pa = new PoiAboutSuggestion(poiNametmp,timetmp,pidtmp);
+            pl.add(pa);
+        }
+        Collections.sort(pl);
+        ArrayList<String> l = new ArrayList<>();
+        for (int i = 0; i < pl.size(); i++) {
+            l.add(pl.get(i).poiName);
+        }
+        return l;
+    } 
 }

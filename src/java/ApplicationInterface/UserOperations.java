@@ -7,10 +7,13 @@ package ApplicationInterface;
 
 import DatabaseInterface.SQLExecutor;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
- * @author RobbinNi
+ * @author RobbinNi, yjt-Lab
  */
 public class UserOperations {
     
@@ -34,4 +37,27 @@ public class UserOperations {
         return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Favorites WHERE login='" + login + "';");
     }
     
+    public static int computeDegree(String user1, String user2) throws Exception {
+        HashSet<String> hm =new HashSet<>();
+        Queue<String> uq = new LinkedList<>();
+        Queue<Integer> dq = new LinkedList<>();
+        hm.add(user1);
+        uq.offer(user1);
+        dq.offer(0);
+        while (!uq.isEmpty()) {
+            String u = uq.poll();
+            Integer d = dq.poll();
+            ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT DISTINCT login FROM acmdb05.Favorites WHERE pid IN (SELECT pid FROM acmdb05.Favorites WHERE login='"+u+"');");
+            for (int i = 0; i < ret.size(); i++) {
+                String s = ret.get(i)[0];
+                if (!hm.contains(s)) {
+                    uq.offer(s);
+                    dq.offer(d+1);
+                    if (s == user2) return d+1;
+                    hm.add(s);
+                }
+            }
+        }
+        return -1;
+    }
 }
