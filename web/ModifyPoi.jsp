@@ -28,6 +28,35 @@ function check_all_fields(form_obj){
         <% String searchAttribute = request.getParameter("searchAttribute");
            if( searchAttribute == null ){ %>
            
+        <h1>POI List</h1>
+	<style type="text/css">
+	.table5 {
+	  border-collapse: collapse;
+	}
+	.table5 th {
+	  background-color: #cccccc;
+	}
+	.table5 td {
+	  text-align: center;
+	}
+	</style>
+	<table class="table5" border=1>
+	 <tr><th>Pid</th><th>Name</th><th>Category</th></tr>
+	 <%
+	     java.util.ArrayList<String[]> list = POIOperations.getList();
+	     for (String[] ss : list) {
+		 %>
+			<tr>
+		 <%
+		 for (int i = 0; i < ss.length; ++i) {
+		     %> <td> <%= ss[i] %> </td> <%
+		 }
+		 %>
+			</tr>
+		 <%
+	     }
+	 %>
+	</table>
         New POI:
         <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="orders.jsp">
                 <input type=hidden name="searchAttribute" value="New">
