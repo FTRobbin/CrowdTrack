@@ -64,7 +64,7 @@ public class POIOperations {
     
     public static int addPoi(String poiName, String poiCategory) {
         try {
-            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"')");
+            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"');");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;
@@ -74,7 +74,7 @@ public class POIOperations {
     
     public static int updatePoi(int pid, String poiName, String poiCategory) {
         try {
-            SQLExecutor.executeUpdate("UPDATE acmdb05.Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid);
+            SQLExecutor.executeUpdate("UPDATE acmdb05.Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid+";");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;
