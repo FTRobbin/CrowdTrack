@@ -83,11 +83,11 @@ public class POIOperations {
     }
     
     public static ArrayList<String[]> getMostVisitsList(int top, String cond) throws Exception {
-        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, c.cnt FROM acmdb05.Pois p, (SELECT pid, count(*) as cnt FROM acmdb05.Visits v GROUP BY v.vid) AS c WHERE p.pid = c.pid " + cond + " ORDER BY c.cnt LIMIT " + top + ";");
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, c.cnt FROM acmdb05.Pois p, (SELECT pid, count(*) as cnt FROM acmdb05.Visits v GROUP BY v.pid) AS c WHERE p.pid = c.pid " + cond + " ORDER BY c.cnt DESC LIMIT " + top + ";");
     }
     
     public static ArrayList<String[]> getMostExpensiveList(int top, String cond) throws Exception {
-        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT vv.pid, avg(cost) AS avg FROM (SELECT v.pid, v.vid, ve.cost FROM acmdb05.Visits v, acmdb05.VisEvent ve WHERE v.vid = ve.vid) AS vv GROUP BY vv.pid) AS a WHERE p.pid = a.pid "  + cond + " ORDER BY a.avg LIMIT " + top + ";");
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price, a.avg FROM acmdb05.Pois p, (SELECT vv.pid, avg(cost) AS avg FROM (SELECT v.pid, v.vid, (ve.cost / ve.numofheads) AS cost FROM acmdb05.Visits v, acmdb05.VisEvent ve WHERE v.vid = ve.vid) AS vv GROUP BY vv.pid) AS a WHERE p.pid = a.pid "  + cond + " ORDER BY a.avg DESC LIMIT " + top + ";");
     }
     
     public static ArrayList<String[]> getHighestRatedList(int top, String cond) throws Exception {

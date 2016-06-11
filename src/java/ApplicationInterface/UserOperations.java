@@ -87,7 +87,7 @@ public class UserOperations {
     }
     
     public static ArrayList<String[]> getUsefulnessList(int top) throws Exception {
-        return SQLExecutor.executeQuery("SELECT u.login, u.Name, sum(favg.avg) as sum FROM acmdb05.Users u, (SELECT r.login, f.fid, avg(r.rating) as avg FROM acmdb05.Feedbacks f, acmdb05.Rates r WHERE f.fid = r.fid) AS favg WHERE u.login = favg.login GROUP BY u.login ORDER BY sum DESC LIMIT " + top + " ;");
+        return SQLExecutor.executeQuery("SELECT u.login, u.Name, sum(favg.avg) as sum FROM acmdb05.Users u, (SELECT f.login, f.fid, avg(r.rating) as avg FROM acmdb05.Feedbacks f, acmdb05.Rates r WHERE f.fid = r.fid GROUP BY f.fid) AS favg WHERE u.login = favg.login GROUP BY u.login ORDER BY sum DESC LIMIT " + top + " ;");
     }
     
     public static int computeDegree(String user1, String user2) throws Exception {

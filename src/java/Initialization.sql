@@ -16,7 +16,7 @@ CREATE TABLE Users (login CHAR(30), password CHAR(30), name VARCHAR(40), userTyp
 	PRIMARY KEY(login));
 CREATE TABLE VisEvent (vid INTEGER AUTO_INCREMENT, cost INTEGER, numofheads INTEGER,
 	PRIMARY KEY(vid));
-CREATE TABLE Visits (login CHAR(30), pid INTEGER, vid INTEGER, visdate DATE,
+CREATE TABLE Visits (login CHAR(30) NOT NULL, pid INTEGER NOT NULL, vid INTEGER NOT NULL, visdate DATE,
 	PRIMARY KEY(login, pid, vid),
     FOREIGN KEY(login) REFERENCES Users(login),
     FOREIGN KEY(pid) REFERENCES Pois(pid),

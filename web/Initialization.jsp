@@ -60,6 +60,18 @@
 		    <%= DatabaseInitializer.initialization("AdjectiveKeywords.sql") %>
 		    <%
 		}
+		if (request.getParameter("clicked").equals("7")) {
+		    %>
+		    <text>Now adding other tables.</text>
+		    <%= DatabaseInitializer.initialization("MoreInitialization.sql") %>
+		    <%
+		}
+		if (request.getParameter("clicked").equals("8")) {
+		    %>
+		    <text>Now recreating all the wheels.</text>
+		    <%= DatabaseInitializer.initialization("AddAll.sql") %>
+		    <%
+		}
 	
 	    }
 	%>
@@ -73,6 +85,8 @@
 	    <input type="button" value="AddTuringAwards" onclick="go(4)">
 	    <input type="button" value="AddFeedbacks" onclick="go(5)">
 	    <input type="button" value="AddKeywords" onclick="go(6)">
+	    <input type="button" value="AddOtherTables" onclick="go(7)">
+	    <input type="button" value="CreateWorld" onclick="go(8)">
 	</form>
 	
 	<script language="JavaScript">
