@@ -106,7 +106,7 @@ public class UserOperations {
                 if (!hm.contains(s)) {
                     uq.offer(s);
                     dq.offer(d+1);
-                    if (s == user2) return d+1;
+                    if (s.equals(user2)) return d+1;
                     hm.add(s);
                 }
             }

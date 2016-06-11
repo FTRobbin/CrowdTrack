@@ -36,7 +36,7 @@ function check_all_fields(form_obj){
         </form>
         <a href="index.jsp">Back</a>
         <% } else {
-               int deg = Visit.doVisit((String)session.getAttribute("login"), request.getParameter("VisitPoi"), request.getParameter("VisitDate"), Integer.valueOf(request.getParameter("cost")), Integer.valueOf(request.getParameter("numberofheads")));
+               int deg = UserOperations.computeDegree(request.getParameter("user1"), request.getParameter("user2"));
                out.println("User Degree: "+Integer.toString(deg));
         %>
         <a href="index.jsp">Back</a>

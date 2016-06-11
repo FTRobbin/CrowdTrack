@@ -41,7 +41,7 @@ function check_all_fields(form_obj){
 	}
 	</style>
 	<table class="table5" border=1>
-	 <tr><th>Pid</th><th>Name</th><th>Category</th></tr>
+	 <tr><th>Pid</th><th>Name</th><th>Category</th><th>State</th><th>City</th><th>Street</th><th>Price</th></tr>
 	 <%
 	     java.util.ArrayList<String[]> list = POIOperations.getList();
 	     for (String[] ss : list) {
@@ -62,6 +62,10 @@ function check_all_fields(form_obj){
                 <input type=hidden name="searchAttribute" value="New">
                 POI name:<input type=text name="poiName" length=50>
                 POI category:<input type=text name="poiCategory" length=30>
+                POI State:<input type=text name="poiState" length=30>
+                POI City:<input type=text name="poiCity" length=30>
+                POI Street:<input type=text name="poiStreet" length=30>
+                POI Price:<input type=text name="poiPrice" length=30>
                 <input type=submit value="New">
         </form>
         <BR><BR>
@@ -71,12 +75,16 @@ function check_all_fields(form_obj){
                 Pid:<input type=text name="pid" length=10>
                 POI name:<input type=text name="poiName" length=50>
                 POI category:<input type=text name="poiCategory" length=30>
+                POI State:<input type=text name="poiState" length=30>
+                POI City:<input type=text name="poiCity" length=30>
+                POI Street:<input type=text name="poiStreet" length=30>
+                POI Price:<input type=text name="poiPrice" length=30>
                 <input type=submit value="Update">
         </form>
-
+        <a href="index.jsp">Back</a>
         <% } else {
                 if (request.getParameter("searchAttribute").equals("New")) {
-                    int flag = POIOperations.addPoi(request.getParameter("poiName"), request.getParameter("poiCategory"));
+                    int flag = POIOperations.addPoi(request.getParameter("poiName"), request.getParameter("poiCategory"),request.getParameter("poiState"),request.getParameter("poiCity"),request.getParameter("poiStreet"),Double.parseDouble(request.getParameter("poiPrice")));
                     if (flag == 1) {
         %>
         <script>
@@ -89,7 +97,7 @@ function check_all_fields(form_obj){
         <%          } %>
         <%      }
                 if (request.getParameter("searchAttribute").equals("Update")) {
-                    int flag = POIOperations.updatePoi(Integer.valueOf(request.getParameter("pid")), request.getParameter("poiName"), request.getParameter("poiCategory"));
+                    int flag = POIOperations.updatePoi(Integer.valueOf(request.getParameter("pid")), request.getParameter("poiName"), request.getParameter("poiCategory"),request.getParameter("poiState"),request.getParameter("poiCity"),request.getParameter("poiStreet"),Double.parseDouble(request.getParameter("poiPrice")));
                     if (flag == 1) {
         %>
         <script>

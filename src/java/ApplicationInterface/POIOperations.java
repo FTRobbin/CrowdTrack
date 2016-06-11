@@ -109,12 +109,12 @@ public class POIOperations {
     
     public static String[] getInfo(int pid) throws Exception {
         ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT pid,name,category FROM acmdb05.Pois WHERE pid="+pid+";");
-        return ret.get(1);
+        return ret.get(0);
     }
     
-    public static int addPoi(String poiName, String poiCategory) {
+    public static int addPoi(String poiName, String poiCategory, String poiState, String poiCity, String poiStreet, double poiPrice) {
         try {
-            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"');");
+            SQLExecutor.executeUpdate("INSERT INTO acmdb05.Pois VALUES ( 0,'"+poiName+"', '"+poiCategory+"', '"+poiState+"', '"+poiCity+"', '"+poiStreet+"', "+Double.toString(poiPrice)+");");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;
@@ -122,9 +122,9 @@ public class POIOperations {
         return 1;
     }
     
-    public static int updatePoi(int pid, String poiName, String poiCategory) {
+    public static int updatePoi(int pid, String poiName, String poiCategory, String poiState, String poiCity, String poiStreet, double poiPrice) {
         try {
-            SQLExecutor.executeUpdate("UPDATE acmdb05.Pois SET name='"+poiName+"', category='"+poiCategory+"' WHERE pid="+pid+";");
+            SQLExecutor.executeUpdate("UPDATE acmdb05.Pois SET name='"+poiName+"', category='"+poiCategory+"', istate='"+poiState+"', city='"+poiCity+"', street='"+poiStreet+"', price="+Double.toString(poiPrice)+" WHERE pid="+pid+";");
         } catch(Exception e) {
             e.printStackTrace();
             return 0;
@@ -155,7 +155,7 @@ public class POIOperations {
         TreeMap<Integer,Integer> tm = new TreeMap<>();
         for (int i = 0; i < ret2.size(); i++) {
             ArrayList<String[]> ret3 = SQLExecutor.executeQuery("SELECT DISTINCT pid FROM acmdb05.Visits WHERE login='"+ret2.get(i)[0]+"';");
-            for (int j = 0; j < ret3.size(); i++) {
+            for (int j = 0; j < ret3.size(); j++) {
                 Integer re = Integer.valueOf(ret3.get(j)[0]);
                 if (!tm.containsKey(re)) {
                     tm.put(re, 1);

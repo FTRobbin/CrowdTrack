@@ -39,7 +39,7 @@ function check_all_fields(form_obj){
 	}
 	</style>
 	<table class="table5" border=1>
-	 <tr><th>Pid</th><th>Name</th><th>Category</th></tr>
+	 <tr><th>Pid</th><th>Name</th><th>Category</th><th>State</th><th>City</th><th>Street</th><th>Price</th></tr>
 	 <%
 	     java.util.ArrayList<String[]> list = POIOperations.getList();
 	     for (String[] ss : list) {
@@ -80,7 +80,9 @@ function check_all_fields(form_obj){
             for (int i = 0; i < poiList.size(); i++) {
                 out.println(poiList.get(i));
             }
-         } else { %>
+        %>
+        <a href="index.jsp">Back</a>
+        <% } else { %>
         <script>
 	    if (!alert("Visit Fail.")) location.href = 'index.jsp';
 	</script>

@@ -39,7 +39,7 @@ function check_all_fields(form_obj){
 	}
 	</style>
 	<table class="table5" border=1>
-	 <tr><th>Pid</th><th>Name</th><th>Category</th><th>View Feedback</th></tr>
+	 <tr><th>Pid</th><th>Name</th><th>Category</th><th>State</th><th>City</th><th>Street</th><th>Price</th><th>View Feedback</th></tr>
 	 <%
 	     java.util.ArrayList<String[]> list = POIOperations.getList();
 	     for (String[] ss : list) {
@@ -50,7 +50,7 @@ function check_all_fields(form_obj){
 		     %> <td> <%= ss[i] %> </td> <%
 		 }
 		 %>
-			<td><a href="index.jsp?searchAttribute=Feedback&pid=<%= ss[0] %>">View Feedback</a>  </td></tr>
+			<td><a href="Feedback.jsp?searchAttribute=Feedback&pid=<%= ss[0] %>">View Feedback</a>  </td></tr>
 		 <%
 	     }
 	 %>
@@ -71,7 +71,7 @@ function check_all_fields(form_obj){
                 <input type=hidden name="searchAttribute" value="FeedbackSubmit">
                 <input type=hidden name="pid" value="<%= request.getParameter("pid") %>">
                 Score:<input type=text name="Score" length=10>
-                Feedback:<input type=text name="Text" length=200>
+                Feedback:<input type=text name="Text" length=200 size="200">
                 <input type=submit value="Submit">
         </form>
         <%  } %>

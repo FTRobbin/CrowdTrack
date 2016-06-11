@@ -42,7 +42,7 @@
             <tr><td><%= ss[0]%></td>
 		 <%
                  String[] sp = FeedbackOperations.getFeedback(Integer.valueOf(ss[1]));
-		 for (int i = 1; i < sp.length; ++i) {
+		 for (int i = 0; i < sp.length; ++i) {
 		     %> <td> <%= sp[i] %> </td> <%
 		 }
                 
@@ -52,6 +52,7 @@
 	    <% } %>
 	 
 	</table>
+        <a href="index.jsp">Back</a>
         <%  }%>
     </body>
 </html>

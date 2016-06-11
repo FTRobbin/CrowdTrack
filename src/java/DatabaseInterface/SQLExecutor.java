@@ -75,6 +75,34 @@ public class SQLExecutor {
         return ret;
     }
     
+    public static int executeUpdateAndID(String sqlUpdate) throws Exception {
+        Connector con = new Connector();
+        int ret;
+        try {
+            ret = con.stmt.executeUpdate(sqlUpdate);           
+        } catch (Exception e) {
+            System.err.println("Unable to execute update : \"" + sqlUpdate + '"');
+            System.err.println(e.getMessage());
+            throw(e);
+        }
+        System.err.println("Executed query : \"" + sqlUpdate + '"');
+        String sqlQuery = "SELECT LAST_INSERT_ID();";
+        ResultSet results;
+        try {
+            results = con.stmt.executeQuery(sqlQuery);
+        } catch (Exception e) {
+            System.err.println("Unable to execute query : \"" + sqlQuery + '"');
+            System.err.println(e.getMessage());
+            throw(e);
+        }
+        System.err.println("Executed query : \"" + sqlQuery + '"');
+        results.next();
+        ret = results.getInt(1);
+        con.stmt.close();
+        con.con.close();
+        return ret;
+    }
+    
     public static int[] executeScript(File sqlScript) throws Exception {
         Connector con = new Connector();
         try {
