@@ -76,11 +76,24 @@ function check_all_fields(form_obj){
 	</script>
         <%
             out.println("Suggestion POIs: ");
-            java.util.ArrayList<String> poiList = POIOperations.getSuggestion(request.getParameter("VisitPoi"));
-            for (int i = 0; i < poiList.size(); i++) {
-                out.println(poiList.get(i));
-            }
+            java.util.ArrayList<String[]> poiList = POIOperations.getSuggestion(request.getParameter("VisitPoi"));
         %>
+        <table class="table5" border=1>
+	 <tr><th>Times</th><th>POI</th></tr>
+	 <%
+	     for (String[] ss : poiList) {
+		 %>
+			<tr>
+		 <%
+		 for (int i = 0; i < ss.length; ++i) {
+		     %> <td> <%= ss[i] %> </td> <%
+		 }
+		 %>
+			</tr>
+		 <%
+	     }
+	 %>
+	</table>
         <a href="index.jsp">Back</a>
         <% } else { %>
         <script>

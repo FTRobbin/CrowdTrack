@@ -39,7 +39,7 @@ public class FeedbackOperations {
     }
     
     public static ArrayList<String[]> getAllFeedback(String login, int pid) throws Exception {
-        ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT fid,login,fdate,score,text FROM acmdb05.Feedbacks WHERE pid="+pid+" LIMIT 10;");
+        ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT fid,login,fdate,score,text FROM acmdb05.Feedbacks WHERE login<>'"+login+"' AND pid="+pid+";");
         return ret;
     }
     

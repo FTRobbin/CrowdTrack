@@ -81,6 +81,14 @@ function check_all_fields(form_obj){
                 POI Price:<input type=text name="poiPrice" length=30>
                 <input type=submit value="Update">
         </form>
+        
+        Add Keyword:
+        <form name="director_search" method=get onsubmit="return check_all_fields(this)" action="ModifyPoi.jsp">
+                <input type=hidden name="searchAttribute" value="Keyword">
+                Pid:<input type=text name="pid" length=10>
+                Keyword:<input type=text name="keyword" length=50>
+                <input type=submit value="Add">
+        </form>
         <a href="index.jsp">Back</a>
         <% } else {
                 if (request.getParameter("searchAttribute").equals("New")) {
@@ -106,6 +114,19 @@ function check_all_fields(form_obj){
         <%          } else { %>
         <script>
 	    if (!alert("Update Fail.")) location.href = 'index.jsp';
+	</script>
+        <%          } 
+                }
+                if (request.getParameter("searchAttribute").equals("Keyword")) {
+                    int flag = KeywordsOperations.addKeyword(Integer.valueOf(request.getParameter("pid")), request.getParameter("keyword"));
+                    if (flag == 1) {
+        %>
+        <script>
+	    if (!alert("Add Keyword Success.")) location.href = 'index.jsp';
+	</script>
+        <%          } else { %>
+        <script>
+	    if (!alert("Add Keyword Fail.")) location.href = 'index.jsp';
 	</script>
         <%          } 
                 }

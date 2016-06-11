@@ -148,13 +148,13 @@ public class POIOperations {
         }
     }
     
-    public static ArrayList<String> getSuggestion(String poiName) throws Exception {
+    public static ArrayList<String[]> getSuggestion(String poiName) throws Exception {
         ArrayList<String[]> ret1 = SQLExecutor.executeQuery("SELECT pid FROM acmdb05.Pois WHERE name='"+poiName+"';");
         int pid = Integer.valueOf(ret1.get(0)[0]);
         ArrayList<String[]> ret2 = SQLExecutor.executeQuery("SELECT DISTINCT login FROM acmdb05.Visits WHERE pid="+pid+";");
         TreeMap<Integer,Integer> tm = new TreeMap<>();
         for (int i = 0; i < ret2.size(); i++) {
-            ArrayList<String[]> ret3 = SQLExecutor.executeQuery("SELECT DISTINCT pid FROM acmdb05.Visits WHERE login='"+ret2.get(i)[0]+"';");
+            ArrayList<String[]> ret3 = SQLExecutor.executeQuery("SELECT DISTINCT pid FROM acmdb05.Visits WHERE login='"+ret2.get(i)[0]+"' AND pid<>"+pid+";");
             for (int j = 0; j < ret3.size(); j++) {
                 Integer re = Integer.valueOf(ret3.get(j)[0]);
                 if (!tm.containsKey(re)) {
@@ -175,9 +175,12 @@ public class POIOperations {
             pl.add(pa);
         }
         Collections.sort(pl);
-        ArrayList<String> l = new ArrayList<>();
+        ArrayList<String[]> l = new ArrayList<>();
         for (int i = 0; i < pl.size(); i++) {
-            l.add(pl.get(i).poiName);
+            String[] ss = new String[2];
+            ss[0] = Integer.toString(pl.get(i).times);
+            ss[1] = pl.get(i).poiName;
+            l.add(ss);
         }
         return l;
     } 
