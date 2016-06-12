@@ -230,96 +230,109 @@
 	    <table class="table table-striped">
 		<tr><th>Name</th><th>Category</th><th>State</th><th>City</th><th>Street</th><th>Price</th><%= special > 0 ? "<th>" + extraCol + "</th>" : ""%><th>Favorite</th></tr>
 			<%
-			    for (ArrayList<String> ss : list) {
+                            for (ArrayList<String> ss : list) {
 			%>
 		<tr>
 		    <%
-			for (int i = 1; i < ss.size() - 1; ++i) {
+                        for (int i = 1; i < ss.size() - 1; ++i) {
 		    %> <td> <%= ss.get(i)%> </td> <%
-			    }
+                        }
 		    %>
 		    <%
-                    //if (ApplicationInterface.POIOperations.userFavPoiQuery((String)session.getAttribute("login"), ss[0])) {
-		   %> <td> <a href="Favorite.jsp?pid=<%= ss.get(0)%>"> <%= ss.get(ss.size() - 1)%> </a> </td> <%
+                        //if (ApplicationInterface.POIOperations.userFavPoiQuery((String)session.getAttribute("login"), ss[0])) {
+		    %> <td> <a href="Favorite.jsp?pid=<%= ss.get(0)%>"> <%= ss.get(ss.size() - 1)%> </a> </td> <%
 		    %>
 		</tr>
 		<%
-		    }
+                    }
 		%>
 	    </table>
 
 	    <br/>
-	    <form name="select" method="GET" action="PoiList.jsp">
-		<input type="hidden" name="isStat" value="false">
-		Price Range
-		<div>
-		    Min <input type="text" name="minp">
-		    Max <input type="text" name="maxp">
+	    <div class="panel panel-default">
+		<div class="panel-heading">
+		    <h3 class="panel-title">POI Browsing</h3>
 		</div>
-		Location
-		<div>
-		    State <input type="text" name="istate"> City <input type="text" name="city">
+		<div class="panel-body">
+		    <form name="select" method="GET" action="PoiList.jsp">
+			<input type="hidden" name="isStat" value="false">
+			Price Range
+			<div>
+			    Min <input type="text" name="minp">
+			    Max <input type="text" name="maxp">
+			</div>
+			Location
+			<div>
+			    State <input type="text" name="istate"> City <input type="text" name="city">
+			</div>
+			Category
+			<div>
+			    <input type="text" name="category">
+			</div>
+			Sorted By 
+			<div>
+			    <input type="radio" name="sortg" value="none" checked> None
+			    <input type="radio" name="sortg" value="pricei"> Price Increasing
+			    <input type="radio" name="sortg" value="priced"> Price Decreasing
+			    <input type="radio" name="sortg" value="avg"> Average Score
+			    <input type="radio" name="sortg" value="tavg"> Trusted Average Score
+			</div>
+			Keywords
+			<div>
+			    <%
+                                ArrayList<String[]> keywords = KeywordsOperations.getKeywordsList();
+			    %>
+			    <input type="hidden" name="keynum" value="<%= keywords.size()%>">
+			    <%
+                                for (String[] s : keywords) {
+			    %>
+			    <input type="checkbox" name="keywords<%= s[0]%>" value="checked"> <%= s[1]%>
+			    <%
+                                }
+			    %>
+			</div>
+			<div> <input type="submit"> </div>
+		    </form>
 		</div>
-		Category
-		<div>
-		    <input type="text" name="category">
-		</div>
-		Sorted By 
-		<div>
-		    <input type="radio" name="sortg" value="none" checked> None
-		    <input type="radio" name="sortg" value="pricei"> Price Increasing
-		    <input type="radio" name="sortg" value="priced"> Price Decreasing
-		    <input type="radio" name="sortg" value="avg"> Average Score
-		    <input type="radio" name="sortg" value="tavg"> Trusted Average Score
-		</div>
-		Keywords
-		<div>
-		    <%
-			ArrayList<String[]> keywords = KeywordsOperations.getKeywordsList();
-		    %>
-		    <input type="hidden" name="keynum" value="<%= keywords.size()%>">
-		    <%
-                        for (String[] s : keywords) {
-		    %>
-		    <input type="checkbox" name="keywords<%= s[0]%>" value="checked"> <%= s[1]%>
-		    <%
-			}
-		    %>
-		</div>
-		<div> <input type="submit"> </div>
-	    </form>
+	    </div>
 	    <br/>
 
-	    <form>
-		<input type="hidden" name="isStat" value="true">
-		<div> TOP <input type="text" name="topnum" value="5"> </div>
-		<div>
-		    <input type="radio" name="sortg" value="visits" checked> Most Visited
-		    <input type="radio" name="sortg" value="price"> Most Expensive
-		    <input type="radio" name="sortg" value="score"> Highest Rated
+	    <div class="panel panel-default">
+		<div class="panel-heading">
+		    <h3 class="panel-title">POI Ranklist</h3>
 		</div>
-		<div>
-		    In
-		    <%
-			ArrayList<String[]> categories = POIOperations.getCategoryList();
-		    %>
-		    <input type="hidden" name="catnum" value="<%= categories.size()%>">
-		    <select name="category">
-			<option value="All">All</option>
-			<%
-                            for (String[] ss : categories) {
-			%>
-			<option value="<%= ss[0]%>"> <%= ss[0]%> </option>
-			<%
-			    }
-			%>    
-		    </select>
+		<div class="panel-body">
+		    <form>
+			<input type="hidden" name="isStat" value="true">
+			<div> TOP <input type="text" name="topnum" value="5"> </div>
+			<div>
+			    <input type="radio" name="sortg" value="visits" checked> Most Visited
+			    <input type="radio" name="sortg" value="price"> Most Expensive
+			    <input type="radio" name="sortg" value="score"> Highest Rated
+			</div>
+			<div>
+			    In
+			    <%
+				ArrayList<String[]> categories = POIOperations.getCategoryList();
+			    %>
+			    <input type="hidden" name="catnum" value="<%= categories.size()%>">
+			    <select name="category">
+				<option value="All">All</option>
+				<%
+				    for (String[] ss : categories) {
+				%>
+				<option value="<%= ss[0]%>"> <%= ss[0]%> </option>
+				<%
+				    }
+				%>    
+			    </select>
+			</div>
+			<div>
+			    <input type="submit">
+			</div>
+		    </form>
 		</div>
-		<div>
-		    <input type="submit">
-		</div>
-	    </form>
-
+	    </div>
 	    <br/>
 	    <a href="index.jsp">Back</a>	
 	</div>

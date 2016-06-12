@@ -148,16 +148,23 @@
 	    %>
 
 	    <br/>
-	    <form>
-		<div> TOP <input type="text" name="topnum" value="5"> </div>
-		<div>
-		    <input type="radio" name="sortg" value="trusted" checked> Most Trusted
-		    <input type="radio" name="sortg" value="useful"> Most Useful
+	    <div class="panel panel-default">
+		<div class="panel-heading">
+		    <h3 class="panel-title"> Search </h3>
 		</div>
-		<div>
-		    <input type="submit">
+		<div class="panel-body">
+		    <form>
+			<div> TOP <input type="text" name="topnum" value="5"> </div>
+			<div>
+			    <input type="radio" name="sortg" value="trusted" checked> Most Trusted
+			    <input type="radio" name="sortg" value="useful"> Most Useful
+			</div>
+			<div>
+			    <input type="submit">
+			</div>
+		    </form>
 		</div>
-	    </form>
+	    </div>
 
 
 	    <br/>

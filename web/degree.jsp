@@ -114,9 +114,9 @@
 	    </div>
 	</nav>
 
+	<div class="container theme-showcase" role="main">    
         <% String searchAttribute = request.getParameter("searchAttribute");
             if (searchAttribute == null) { %>
-	<div class="container theme-showcase" role="main">    
 	    <div class="jumbotron"> </div>
 	    <div class="page-header">
 		<h1> Get Users Degree:</h1>
@@ -130,8 +130,12 @@
 	    <a href="index.jsp">Back</a>
 	    <% } else {
                 int deg = UserOperations.computeDegree(request.getParameter("user1"), request.getParameter("user2"));
-                out.println("User Degree: " + Integer.toString(deg));
-	    %>
+                %>	   
+		<div class="jumbotron"> </div>
+	    <div class="page-header">
+		<h1> Users Degree: <%= Integer.toString(deg) %> </h1>
+	    </div>
+		
 	    <a href="index.jsp">Back</a>
 	    <% }%>
 	</div>
