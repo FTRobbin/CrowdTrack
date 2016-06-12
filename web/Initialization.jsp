@@ -8,16 +8,30 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Initialization</title>
+		<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+                <title>Initialization</title>
+
+
+	<!-- Bootstrap core CSS -->
+	<link href="Style/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap theme -->
+	<link href="Style/css/bootstrap-theme.min.css" rel="stylesheet">
+
     </head>
     <body>
 	<jsp:include page="PrivilegeLevelCheck.jsp">
 		<jsp:param name="requiredPL" value="3"/>
 	</jsp:include>
-	
+		<div class="container theme-showcase" role="main">     
+
+		<div class="jumbotron">
         <h1>Initialization</h1>
-	<text>This JSP page drops all the tables in the remote server and initialize the tables needed for the CrowdTrack System.</text><br/>
+	<p>This JSP page drops all the tables in the remote server and initialize the tables needed for the CrowdTrack System.</p><br/>
+		    
+		    </div>
 	
 	<%
 	    System.err.println(request.getParameter("clicked"));
@@ -103,5 +117,6 @@
 	
 	<br/>
 	<a href="index.jsp">Back</a>
+		</div>
     </body>
 </html>

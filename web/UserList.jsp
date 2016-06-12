@@ -8,45 +8,129 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>User List</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>User List</title>
+
+
+	<!-- Bootstrap core CSS -->
+	<link href="Style/css/bootstrap.min.css" rel="stylesheet">
+	<!-- Bootstrap theme -->
+	<link href="Style/css/bootstrap-theme.min.css" rel="stylesheet">
+
+
     </head>
     <body>
+	<!-- Fixed navbar -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	    <div class="container">
+		<div class="navbar-header">
+		    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		    </button>
+		    <a class="navbar-brand" href="#">CrowdTrack</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+		    <ul class="nav navbar-nav">
+			<li><a href="index.jsp">Home</a></li>
+			    <jsp:include page="PrivilegeLevelHide.jsp" >
+				    <jsp:param name="requiredPL" value="3"/>
+				    <jsp:param name="content" value="<li><a href=\"Initialization.jsp\">Initialization</a></li>"/>
+			    </jsp:include>
+
+			<%
+                            if (session.getAttribute("login") != null && session.getAttribute("login") != "") {
+                            } else {
+			%>
+			<li><a href="Register.jsp">Register</a></li>
+			<li><a href="Login.jsp">Login</a></li>
+			    <%
+                                }
+			    %>
+
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li><a href=\"Visit.jsp\">New Visit</a></li>"/>
+			</jsp:include>
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li><a href=\"PoiList.jsp\">POI List</a></li>"/>
+			</jsp:include>
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li><a href=\"Feedback.jsp\">Feedback</a></li>"/>
+			</jsp:include>
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li class=\"active\"><a href=\"UserList.jsp\">User List</a></li>"/>
+			</jsp:include>
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li><a href=\"degree.jsp\">User Degree</a></li>"/>
+			</jsp:include>
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="2"/>
+				<jsp:param name="content" value="<li><a href=\"ModifyPoi.jsp\">Modify POI</a></li>"/>
+			</jsp:include>
+
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="2"/>
+				<jsp:param name="content" value="<li><a href=\"UserAwards.jsp\">User Awards</a></li>"/>
+			</jsp:include>
+
+
+			<jsp:include page="PrivilegeLevelHide.jsp" >
+				<jsp:param name="requiredPL" value="1"/>
+				<jsp:param name="content" value="<li><a href=\"Logout.jsp\">Logout</a></li>"/>
+			</jsp:include>
+
+		    </ul>
+		</div><!--/.nav-collapse -->
+	    </div>
+	</nav>
 	<jsp:include page="PrivilegeLevelCheck.jsp">
 		<jsp:param name="requiredPL" value="1"/>
 	</jsp:include>
-	<h1>User List</h1>
-	<style type="text/css">
-	.table5 {
-	  border-collapse: collapse;
-	}
-	.table5 th {
-	  background-color: #cccccc;
-	}
-	.table5 td {
-	  text-align: center;
-	}
-	</style>
-	<table class="table5" border=1 cellpadding="5">
-	 <tr><th>Login</th><th>Name</th><th>Privilege</th><th>Trust</th></tr>
-	 <%
-	     ArrayList<ArrayList<String>> list = UserOperations.getTrustList(UserOperations.getList(),(String)session.getAttribute("login"));
-	     for (ArrayList<String> ss : list) {
-		 %>
-			<tr>
-		 <%
-		 for (int i = 0; i < ss.size() - 1; ++i) {
-		     %> <td> <%= ss.get(i) %> </td> <%
-		 }
-		 %>
-		 <td> <a href="Trust.jsp?login=<%= ss.get(0) %>"> <%= ss.get(ss.size() - 1) %> </a> </td> <%
-		 %>
-			</tr>
-		 <%
-	     }
-	 %>
-	</table>
-	
-	<br/>
-	<a href="index.jsp">Back</a>	    </body>
+	<div class="container theme-showcase" role="main">    
+	    <div class="jumbotron"> </div>
+	    <div class="page-header">
+		<h1>User List</h1>
+	    </div>
+
+	    <table class="table table-striped">
+		<tr><th>Login</th><th>Name</th><th>Privilege</th><th>Trust</th></tr>
+			<%
+			    ArrayList<ArrayList<String>> list = UserOperations.getTrustList(UserOperations.getList(), (String) session.getAttribute("login"));
+			    for (ArrayList<String> ss : list) {
+			%>
+		<tr>
+		    <%
+			for (int i = 0; i < ss.size() - 1; ++i) {
+		    %> <td> <%= ss.get(i)%> </td> <%
+			    }
+		    %>
+		    <td> <a href="Trust.jsp?login=<%= ss.get(0)%>"> <%= ss.get(ss.size() - 1)%> </a> </td> <%
+		    %>
+		</tr>
+		<%
+		    }
+		%>
+	    </table>
+
+	    <br/>
+	    <a href="index.jsp">Back</a>
+	</div>
+    </body>
 </html>
