@@ -34,7 +34,7 @@
 	
         <jsp:include page="PrivilegeLevelHide.jsp" >
 		<jsp:param name="requiredPL" value="1"/>
-		<jsp:param name="content" value="<div><a href=\"Visit.jsp\">New Visit</a></div>"/>
+		<jsp:param name="content" value="<div><a href=\"Visit.jsp?searchAttribute=Visit&num=0\">Visit</a></div>"/>
 	</jsp:include>
 	
         <jsp:include page="PrivilegeLevelHide.jsp" >
