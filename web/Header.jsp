@@ -1,15 +1,24 @@
 <%-- 
-    Document   : PrivilegeLevel
-    Created on : Jun 9, 2016, 2:56:20 PM
+    Document   : Header
+    Created on : Jun 12, 2016, 6:45:11 PM
     Author     : RobbinNi
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
+<html>
+    <body>
         <%
-	    String privilege = (String)session.getAttribute("privilege");
-	    String message = "Privilege Level : ";
+	    String message = "Welcome, ";
+	    String login = (String)session.getAttribute("login");
+	    if (login == null || login == "") {
+		message += "Guest";
+	    } else {
+		message += login;
+	    }
+	    
+	    String privilege = (String)session.getAttribute("privilege"); 
+	    message += "! Privilege Level : ";
 	    if (privilege == null) {
 		message += "Guest";
 	    } else {
@@ -26,4 +35,5 @@
 	    }
 	%>
 	<h2> <%= message %> </h2>
-
+    </body>
+</html>

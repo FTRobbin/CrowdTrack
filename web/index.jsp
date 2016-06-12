@@ -13,17 +13,66 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <jsp:include page="PrivilegeLevel.jsp" />
-        <div><a href="Initialization.jsp">Initialization</a></div>
-	<div><a href="Register.jsp">Register</a></div>
-	<div><a href="Login.jsp">Login</a></div>
-        <div><a href="Visit.jsp">Visit</a></div>
-        <div><a href="ModifyPoi.jsp">Modify POI</a></div>
-        <div><a href="PoiList.jsp">POI List</a></div>
-        <div><a href="Feedback.jsp">View Feedback</a></div>
-	<div><a href="UserList.jsp">User List</a></div>
-        <div><a href="degree.jsp">User Degree</a></div>
-	<div><a href="UserAwards.jsp">User Awards</a></div>
-	<div><a href="Logout.jsp">Logout</a></div>
+	
+	<jsp:include page="Header.jsp"/>
+	
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="3"/>
+		<jsp:param name="content" value="<div><a href=\"Initialization.jsp\">Initialization</a></div>"/>
+	</jsp:include>
+
+	<%
+	    if (session.getAttribute("login") != null && session.getAttribute("login") != "") {
+	    } else {
+		%>
+			<div><a href="Register.jsp">Register</a></div>
+			<div><a href="Login.jsp">Login</a></div>
+		<%
+	    }
+	%>
+
+	
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"Visit.jsp\">New Visit</a></div>"/>
+	</jsp:include>
+	
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"PoiList.jsp\">POI List</a></div>"/>
+	</jsp:include>
+
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"Feedback.jsp\">Feedback</a></div>"/>
+	</jsp:include>
+
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"UserList.jsp\">User List</a></div>"/>
+	</jsp:include>
+
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"degree.jsp\">User Degree</a></div>"/>
+	</jsp:include>
+
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="2"/>
+		<jsp:param name="content" value="<div><a href=\"ModifyPoi.jsp\">Modify POI</a></div>"/>
+	</jsp:include>
+
+	
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="2"/>
+		<jsp:param name="content" value="<div><a href=\"UserAwards.jsp\">User Awards</a></div>"/>
+	</jsp:include>
+	
+	
+        <jsp:include page="PrivilegeLevelHide.jsp" >
+		<jsp:param name="requiredPL" value="1"/>
+		<jsp:param name="content" value="<div><a href=\"Logout.jsp\">Logout</a></div>"/>
+	</jsp:include>
+	
     </body>
 </html>

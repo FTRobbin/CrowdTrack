@@ -13,6 +13,17 @@
     </head>
     <body>
 	<%
+		if (session.getAttribute("login") == null || session.getAttribute("login") == "") {
+		%>
+		<script>
+			if (!alert("You haven't logged in.")) location.href='index.jsp';
+		</script>
+		<%
+	    }
+
+	%>
+	
+	<%
 		session.setAttribute("login", null);
 		session.setAttribute("name", null);
 		session.setAttribute("privilege", null);

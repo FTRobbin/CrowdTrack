@@ -17,11 +17,11 @@ import DatabaseInterface.*;
 public class POIOperations {
     
     public static ArrayList<String[]> getList() throws Exception {
-        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Pois;");
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price FROM acmdb05.Pois p;");
     }
     
     public static ArrayList<String[]> getList(String conditions) throws Exception {
-        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Pois " + conditions + " ;");
+        return SQLExecutor.executeQuery("SELECT p.pid, p.name, p.category, p.istate, p.city, p.street, p.price FROM acmdb05.Pois p " + conditions + " ;");
     }
     
     public static ArrayList<String[]> getAvgSortedList(String conditions) throws Exception {
@@ -108,7 +108,7 @@ public class POIOperations {
     }
     
     public static String[] getInfo(int pid) throws Exception {
-        ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT pid,name,category FROM acmdb05.Pois WHERE pid="+pid+";");
+        ArrayList<String[]> ret = SQLExecutor.executeQuery("SELECT pid,name,category,description FROM acmdb05.Pois WHERE pid="+pid+";");
         return ret.get(0);
     }
     

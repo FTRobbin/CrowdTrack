@@ -23,7 +23,7 @@ function check_all_fields(form_obj){
         </script>
     </head>
     <body>
-        <jsp:include page="PrivilegeLevel.jsp" />
+        <%--<jsp:include page="PrivilegeLevel.jsp" /> --%>
         <% String searchAttribute = request.getParameter("searchAttribute");
            if( searchAttribute == null ){ %>
         <h1>POI List</h1>
@@ -55,12 +55,17 @@ function check_all_fields(form_obj){
 	     }
 	 %>
 	</table>
+	<br/>
         <a href="index.jsp">Back</a>
         <% } else { 
             String[] info = POIOperations.getInfo(Integer.valueOf(request.getParameter("pid")));
         %>
         <h1><%= info[1] %></h1>
         <h2><%= info[2] %></h2>
+        <text><%= info[3] %></text>
+	
+	<br/>
+	
         <%  if (FeedbackOperations.hasFeedback((String)session.getAttribute("login"),Integer.valueOf(request.getParameter("pid")))==1) { 
                 String[] ss = FeedbackOperations.getFeedback((String)session.getAttribute("login"),Integer.valueOf(request.getParameter("pid")));
                 out.println("Your Score:"+ss[0]);
@@ -110,6 +115,8 @@ function check_all_fields(form_obj){
                 Get top <input type=text name="top" length=10> feedbacks.
                 <input type=submit value="Get">
         </form>
+	<br/>
+        <a href="index.jsp">Back</a>
         <% } %>
     </body>
 </html>

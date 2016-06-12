@@ -43,7 +43,7 @@ public class UserOperations {
     }
     
     public static ArrayList<String[]> getList() throws Exception {
-        return SQLExecutor.executeQuery("SELECT * FROM acmdb05.Users;");
+        return SQLExecutor.executeQuery("SELECT login, name, userType FROM acmdb05.Users;");
     }
     
     public static Boolean userTrustUserQuery(String login, String login1) throws Exception {

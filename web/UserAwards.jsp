@@ -12,6 +12,10 @@
         <title>User Awards</title>
     </head>
     <body>
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="2"/>
+	</jsp:include>
+	
 	<h1>User Awards</h1>
 	<%
 	  ArrayList<String[]> list = new ArrayList<>();

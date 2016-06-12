@@ -23,7 +23,12 @@ function check_all_fields(form_obj){
         </script>
     </head>
     <body>
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="2"/>
+	</jsp:include>
+
         <jsp:include page="PrivilegeLevel.jsp" />
+	
         <% if (session.getAttribute("privilege") != null && Integer.valueOf((String)session.getAttribute("privilege"))>=2) { %>
         <% String searchAttribute = request.getParameter("searchAttribute");
            if( searchAttribute == null ){ %>

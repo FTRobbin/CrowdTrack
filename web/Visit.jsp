@@ -23,7 +23,10 @@ function check_all_fields(form_obj){
         </script>
     </head>
     <body>
-        <jsp:include page="PrivilegeLevel.jsp" />
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="1"/>
+	</jsp:include>
+
         <% String searchAttribute = request.getParameter("searchAttribute");
            if( searchAttribute == null ){ %>
         <h1>POI List</h1>

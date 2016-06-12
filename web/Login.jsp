@@ -14,6 +14,13 @@
     <body>
         
 	<%
+	    if (session.getAttribute("login") != null && session.getAttribute("login") != "") {
+		%>
+		<script>
+			if (!alert("You have already logged in. Logout to use another account.")) location.href='index.jsp';
+		</script>
+		<%
+	    }
 	    System.err.println(request.getParameter("clicked"));
 	    if (request.getParameter("clicked") != null) {
 		System.err.println(request.getParameter("clicked"));
@@ -21,7 +28,7 @@
 	    }
 	%>
 
-	<jsp:include page="PrivilegeLevel.jsp"/>
+	<%-- <jsp:include page="PrivilegeLevel.jsp"/> --%>
 	
 	<form name="loginForm" method="POST" action="LoginSubmit.jsp">
 	    Login : <div><input type="text" name="login"></div>

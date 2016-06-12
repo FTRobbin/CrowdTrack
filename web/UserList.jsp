@@ -12,6 +12,9 @@
         <title>User List</title>
     </head>
     <body>
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="1"/>
+	</jsp:include>
 	<h1>User List</h1>
 	<style type="text/css">
 	.table5 {
@@ -25,7 +28,7 @@
 	}
 	</style>
 	<table class="table5" border=1 cellpadding="5">
-	 <tr><th>Login</th><th>Password</th><th>Name</th><th>Privilege</th><th>Trust</th></tr>
+	 <tr><th>Login</th><th>Name</th><th>Privilege</th><th>Trust</th></tr>
 	 <%
 	     ArrayList<ArrayList<String>> list = UserOperations.getTrustList(UserOperations.getList(),(String)session.getAttribute("login"));
 	     for (ArrayList<String> ss : list) {

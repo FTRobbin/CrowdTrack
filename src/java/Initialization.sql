@@ -10,7 +10,7 @@
 DROP DATABASE IF EXISTS acmdb05;
 CREATE DATABASE IF NOT EXISTS acmdb05;
 USE acmdb05;
-CREATE TABLE Pois (pid INTEGER AUTO_INCREMENT, name VARCHAR(50), category CHAR(30), istate CHAR(30), city CHAR(30), street CHAR(30), price NUMERIC(15,2),
+CREATE TABLE Pois (pid INTEGER AUTO_INCREMENT, name VARCHAR(50), category CHAR(30), istate CHAR(30), city CHAR(30), street CHAR(30), price NUMERIC(15,2), description VARCHAR(500),
 	PRIMARY KEY(pid));
 CREATE TABLE Users (login CHAR(30), password CHAR(30), name VARCHAR(40), userType INTEGER,
 	PRIMARY KEY(login));

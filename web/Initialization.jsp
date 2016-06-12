@@ -12,6 +12,10 @@
 	<title>Initialization</title>
     </head>
     <body>
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="3"/>
+	</jsp:include>
+	
         <h1>Initialization</h1>
 	<text>This JSP page drops all the tables in the remote server and initialize the tables needed for the CrowdTrack System.</text><br/>
 	

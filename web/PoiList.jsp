@@ -12,6 +12,10 @@
         <title>Poi List</title>
     </head>
     <body>
+	<jsp:include page="PrivilegeLevelCheck.jsp">
+		<jsp:param name="requiredPL" value="1"/>
+	</jsp:include>
+
 	<%
 	    ArrayList<ArrayList<String> > list = null;
 	    int special = 0;

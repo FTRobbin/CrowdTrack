@@ -28,6 +28,15 @@
         <title>Register</title>
     </head>
     <body>
+	<%
+	    if (session.getAttribute("login") != null && session.getAttribute("login") != "") {
+		%>
+		<script>
+			if (!alert("You have already logged in. Logout to register another account.")) location.href='index.jsp';
+		</script>
+		<%
+	    }
+	%>
 	<h1>Register a new user</h1>
         <form name="regForm" method="POST" onsubmit="return checkAllFields(this)" action="RegisterSubmit.jsp">
 	    Login : <div><input type="text" name="login" maxlength="30"> </div> <br/>
